@@ -1,0 +1,926 @@
+Java Python Data Structures - Leetcode  - ARRAYS
+
+1.ARRAYS
+Q1) 1486 - XOR Operation in an Array
+class Solution {
+    public int xorOperation(int n, int start) {
+        int ans = 0;
+
+        for (int i = 0; i < n; i++) {
+            ans ^= start + 2 * i;
+        }
+
+        return ans;
+    }
+}
+
+Q2) 628 - Maximum Product of Three Numbers
+class Solution {
+    public int maximumProduct(int[] nums) {
+        Arrays.sort(nums);
+
+        int n = nums.length;
+
+        int p1 = nums[n - 1] * nums[n - 2] * nums[n - 3];
+        int p2 = nums[0] * nums[1] * nums[n - 1];
+
+        return Math.max(p1, p2);
+    }
+}
+
+Q3) 75 - Sort Colors
+class Solution {
+    public void sortColors(int[] nums) {
+        int zero = 0, one = 0, two = 0;
+        for (int num : nums) {
+            if (num == 0)
+                zero++;
+            else if (num == 1)
+                one++;
+            else
+                two++;
+        }
+        int i = 0;
+        while (zero-- > 0)
+            nums[i++] = 0;
+        while (one-- > 0)
+            nums[i++] = 1;
+        while (two-- > 0)
+            nums[i++] = 2;
+    }
+}
+
+Q4) 283 - Move Zeroes
+class Solution {
+    public void moveZeroes(int[] nums) {
+       int index = 0;
+       for(int i = 0 ; i < nums.length ; i++) {
+        if(nums[i] != 0) {
+            nums[index] = nums[i];
+            index++;
+         }
+       } 
+       while(index < nums.length) {
+        nums[index] = 0;
+        index++;
+       }
+    }
+}
+
+Q5) 217 - Contains Duplicate 
+import java.util.Arrays;
+class Solution {
+    public boolean containsDuplicate(int[] nums) {
+        Arrays.sort(nums);
+        for (int i = 1; i < nums.length; i++) {
+            if (nums[i] == nums[i - 1]) {
+                return true;
+            }
+        }
+        return false;
+    }
+}
+
+Q6) 2574 - Left and Right Sum Differences
+class Solution {
+    public int[] leftRightDifference(int[] nums) {
+        int n = nums.length;
+        int[] answer = new int[n];
+        int totalSum = 0;
+        for(int num : nums) {
+            totalSum += num;
+        }
+        int leftSum = 0;
+        for(int i = 0 ; i < n ; i++) {
+            int rightSum = totalSum - leftSum - nums[i];
+            answer[i] = Math.abs(leftSum  - rightSum);
+            leftSum += nums[i];
+        }
+        return answer;
+    }
+}
+
+Q7) 3184 - Count Pairs That Form a Complete Day I 
+class Solution {
+    public int countCompleteDayPairs(int[] hours) {
+        int count = 0;
+        for (int i = 0; i < hours.length; i++) {
+            for (int j = i + 1; j < hours.length; j++) {
+                if ((hours[i] + hours[j]) % 24 == 0) {
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+}
+
+Q8) 747 - Largest Number At Least Twice of Others
+class Solution:
+    def dominantIndex(self, nums):
+        max_num = max(nums)
+        index = nums.index(max_num)
+        for i in range(len(nums)):
+            if i != index and max_num < 2 * nums[i]:
+                return -1
+        return index
+        
+Q9) 1480 - Running Sum of 1d Array
+class Solution {
+    public int[] runningSum(int[] nums) { 
+        for(int i = 1 ; i < nums.length ; i++) {
+            nums[i] = nums[i] + nums[i -1];
+        }
+        return nums;
+    }
+} 
+
+Q10) 2022 - Convert 1D Array Into 2D Array
+class Solution:
+    def construct2DArray(self, original, m, n):
+        if len(original) != m * n:
+            return []
+        result = []
+        
+        index = 0
+        for i in range(m):
+            row = []
+            for j in range(n):
+                row.append(original[index])
+                index += 1
+
+            result.append(row)
+        return result
+ 
+Q11) 1672 - Richest Customer Wealth
+class Solution(object):
+    def maximumWealth(self, accounts):
+        max_wealth = 0
+
+        for customer in accounts:
+            wealth = sum(customer)
+            if wealth > max_wealth:
+                max_wealth = wealth
+
+        return max_wealth
+        
+Q12) 1351 - Count Negative Numbers in a Sorted Matrix
+class Solution:
+    def countNegatives(self, grid):
+        count = 0
+        for row in grid:
+            for num in row:
+                if num < 0:
+                   count += 1
+        return count
+		
+Q13) 1051 - Height Checker
+class Solution(object):
+    def heightChecker(self, heights):
+        expected = sorted(heights)
+        mismatch_count = 0
+        for i in range(len(heights)):
+            if heights[i] != expected[i]:
+                mismatch_count += 1
+        return mismatch_count
+		
+Q14) 1365 - How Many Numbers Are Smaller Than the Current Number
+class Solution:
+    def smallerNumbersThanCurrent(self, nums):
+        ans = []
+        for i in range(len(nums)):
+            count = 0
+            for j in range(len(nums)):
+                if i != j and nums[j] < nums[i]:
+                    count += 1
+            ans.append(count)
+        return ans
+		
+Q15) 1295 - Find Numbers with Even Number of Digits 
+class Solution:
+    def findNumbers(self, nums):
+        count = 0
+        for num in nums:
+            if len(str(num)) % 2 == 0:
+                count += 1
+        return count
+		
+Q16) 1929 - Concatenation of Array
+class Solution(object):
+    def getConcatenation(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[int]
+        """
+        return nums * 2
+		
+Q17) 1920 - Build Array from Permutation
+class Solution(object):
+    def buildArray(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[int]
+        """
+        return [nums[nums[i]] for i in range(len(nums))]
+		
+Q18) 2006 - Count Number of Pairs With Absolute Difference K
+class Solution(object):
+    def countKDifference(self, nums, k):
+        pair_count = 0
+        n = len(nums)
+        for i in range(n):
+            for j in range(i + 1, n):
+                if abs(nums[i] - nums[j]) == k:
+                    pair_count += 1          
+        return pair_count
+		
+Q19) 1512 - Number of Good Pairs 
+class Solution {
+    public int numIdenticalPairs(int[] nums) {
+        int count = 0;
+        for (int i = 0; i < nums.length; i++) {
+            for (int j = i + 1; j < nums.length; j++) {
+                if (nums[i] == nums[j]) {
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+}
+
+Q20) 2239 - Find Closest Number to Zero
+class Solution {
+    public int findClosestNumber(int[] nums) {
+        int closest = nums[0];
+        for(int i =0;i<nums.length;i++) {
+            if(Math.abs(nums[i]) < Math.abs(closest)) {
+                closest = nums[i];
+            }
+            else if(Math.abs(nums[i]) == Math.abs(closest)) {
+                closest = Math.max(closest, nums[i]);
+            }
+        }
+        return closest;
+    }
+}
+
+
+Leetcode - STRING
+
+Q1) 2710 - Remove Trailing Zeros From a String
+class Solution {
+    public String removeTrailingZeros(String num) {
+        int i = num.length() - 1;
+
+        while (i >= 0 && num.charAt(i) == '0') {
+            i--;
+        }
+        return num.substring(0, i + 1);
+    }
+}
+
+Q2) 2108 - Find First Palindromic String in the Array
+class Solution {
+    public String firstPalindrome(String[] words) {
+        for (String word : words) {
+            if (isPalindrome(word)) {
+                return word;
+            }
+        }
+        return "";
+    }
+    public boolean isPalindrome(String s) {
+        int left = 0;
+        int right = s.length() - 1;
+        while (left < right) {
+            if (s.charAt(left) != s.charAt(right)) {
+                return false;
+            }
+            left++;
+            right--;
+        }
+        return true;
+    }
+}
+
+Q3) 1704 - Determine if String Halves Are Alike 
+class Solution:
+    def halvesAreAlike(self, s):
+        vowels = "aeiouAEIOU"
+        count1 = 0
+        count2 = 0
+        mid = len(s) // 2
+        for i in range(mid):
+            if s[i] in vowels:
+                count1 += 1
+        for i in range(mid, len(s)):
+            if s[i] in vowels:
+                count2 += 1
+        return count1 == count2
+		
+Q4) 1816 - Truncate Sentence
+class Solution(object):
+    def truncateSentence(self, s, k):
+        """
+        :type s: str
+        :type k: int
+        :rtype: str
+        """
+        return " ".join(s.split()[:k])
+		
+Q5) 2678 - Number of Senior Citizens
+class Solution {
+    public int countSeniors(String[] details) {
+      int count = 0;
+      for(String s: details) {
+        int age = Integer.parseInt(s.substring(11, 13));
+        if(age > 60) {
+            count++;
+        }
+      }
+      return count++;  
+    }
+}
+
+Q6) 1455 - Check If a Word Occurs As a Prefix of Any Word in a Sentence
+class Solution(object):
+    def isPrefixOfWord(self, sentence, searchWord):
+        """
+        :type sentence: str
+        :type searchWord: str
+        :rtype: int
+        """
+        words = sentence.split()
+        for index, word in enumerate(words, 1):
+            if word.startswith(searchWord):
+                return index  
+        return -1 
+		
+Q7) 2114 - Maximum Number of Words Found in Sentences
+class Solution(object):
+    def mostWordsFound(self, sentences):
+        """
+        :type sentences: List[str]
+        :rtype: int
+        """
+        return max(len(sentence.split()) for sentence in sentences)
+		
+Q8) 389 - Find the Difference
+class Solution {
+    public char findTheDifference(String s, String t) {
+        char result = 0;
+        for (char c : s.toCharArray()) {
+            result ^= c;
+        }
+        for (char c : t.toCharArray()) {
+            result ^= c;
+        }
+        return result;
+    }
+}
+
+Q9) 657 - Robot Return to Origin
+class Solution {
+    public boolean judgeCircle(String moves) {
+        int x = 0;
+        int y = 0;
+        
+        for (char move : moves.toCharArray()) {
+            if (move == 'U') {
+                y++;
+            } else if (move == 'D') {
+                y--;
+            } else if (move == 'R') {
+                x++;
+            } else if (move == 'L') {
+                x--;
+            }
+        }
+        
+        return x == 0 && y == 0;
+    }
+}
+
+Q10) 520 - Detect Capital
+class Solution {
+    public boolean detectCapitalUse(String word) {
+        int count = 0;
+        for (char c : word.toCharArray()) {
+            if (Character.isUpperCase(c)) {
+                count++;
+            }
+        }
+        if (count == word.length() || count == 0) {
+            return true;
+        }
+        return count == 1 && Character.isUpperCase(word.charAt(0));
+    }
+}
+
+Q11) 125 - Valid Palindrome
+class Solution {
+    public boolean isPalindrome(String s) {
+        int left = 0;
+        int right = s.length() - 1;
+        while (left < right) {
+            while (left < right && !Character.isLetterOrDigit(s.charAt(left))) {
+                left++;
+            }
+            while (left < right && !Character.isLetterOrDigit(s.charAt(right))) {
+                right--;
+            }
+            if (Character.toLowerCase(s.charAt(left)) != Character.toLowerCase(s.charAt(right))) {
+                return false;
+            }
+            left++;
+            right--;
+        }
+        
+        return true;
+    }
+}
+
+Q12) 242 - Valid Anagram
+class Solution {
+    public boolean isAnagram(String s, String t) {
+        if (s.length() != t.length()) {
+            return false;
+        }
+        int[] charCounts = new int[26];
+        for (int i = 0; i < s.length(); i++) {
+            charCounts[s.charAt(i) - 'a']++;
+            charCounts[t.charAt(i) - 'a']--;
+        }
+        for (int count : charCounts) {
+            if (count != 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+}
+
+Q13) 1108 - Defanging an IP Address
+class Solution {
+    public String defangIPaddr(String address) {
+        return address.replace(".", "[.]");
+    }
+}
+
+Q14) 1662 - Check If Two String Arrays are Equivalent
+class Solution {
+    public boolean arrayStringsAreEqual(String[] word1, String[] word2) {
+        int p1 = 0, p2 = 0; 
+        int i = 0, j = 0;   
+        while (p1 < word1.length && p2 < word2.length) {
+            if (word1[p1].charAt(i) != word2[p2].charAt(j)) {
+                return false;
+            }
+            i++;
+            j++;
+            if (i == word1[p1].length()) {
+                p1++;
+                i = 0;
+            }
+            if (j == word2[p2].length()) {
+                p2++;
+                j = 0;
+            }
+        }
+        return p1 == word1.length && p2 == word2.length;
+    }
+}
+
+Q15) 3019 - Number of Changing Keys
+class Solution {
+    public int countKeyChanges(String s) {
+	String lowerCaseStr = s.toLowerCase();
+        int changeCount = 0;
+        for (int i = 1; i < lowerCaseStr.length(); i++) {
+            if (lowerCaseStr.charAt(i) != lowerCaseStr.charAt(i - 1)) {
+                changeCount++;
+            }
+        }
+        
+        return changeCount;
+    }
+}
+
+Q16) 709 - To Lower Case
+class Solution {
+    public String toLowerCase(String s) {
+        char[] chars = s.toCharArray();
+        for (int i = 0; i < chars.length; i++) {
+            if (chars[i] >= 'A' && chars[i] <= 'Z') {
+                chars[i] = (char) (chars[i] + 32);
+            }
+        }
+        return new String(chars);
+    }
+}
+
+
+Leetcode - STRING
+
+Q1) 2710 - Remove Trailing Zeros From a String
+class Solution {
+    public String removeTrailingZeros(String num) {
+        int i = num.length() - 1;
+
+        while (i >= 0 && num.charAt(i) == '0') {
+            i--;
+        }
+        return num.substring(0, i + 1);
+    }
+}
+
+Q2) 2108 - Find First Palindromic String in the Array
+class Solution {
+    public String firstPalindrome(String[] words) {
+        for (String word : words) {
+            if (isPalindrome(word)) {
+                return word;
+            }
+        }
+        return "";
+    }
+    public boolean isPalindrome(String s) {
+        int left = 0;
+        int right = s.length() - 1;
+        while (left < right) {
+            if (s.charAt(left) != s.charAt(right)) {
+                return false;
+            }
+            left++;
+            right--;
+        }
+        return true;
+    }
+}
+
+Q3) 1704 - Determine if String Halves Are Alike 
+class Solution:
+    def halvesAreAlike(self, s):
+        vowels = "aeiouAEIOU"
+        count1 = 0
+        count2 = 0
+        mid = len(s) // 2
+        for i in range(mid):
+            if s[i] in vowels:
+                count1 += 1
+        for i in range(mid, len(s)):
+            if s[i] in vowels:
+                count2 += 1
+        return count1 == count2
+		
+Q4) 1816 - Truncate Sentence
+class Solution(object):
+    def truncateSentence(self, s, k):
+        """
+        :type s: str
+        :type k: int
+        :rtype: str
+        """
+        return " ".join(s.split()[:k])
+		
+Q5) 2678 - Number of Senior Citizens
+class Solution {
+    public int countSeniors(String[] details) {
+      int count = 0;
+      for(String s: details) {
+        int age = Integer.parseInt(s.substring(11, 13));
+        if(age > 60) {
+            count++;
+        }
+      }
+      return count++;  
+    }
+}
+
+Q6) 1455 - Check If a Word Occurs As a Prefix of Any Word in a Sentence
+class Solution(object):
+    def isPrefixOfWord(self, sentence, searchWord):
+        """
+        :type sentence: str
+        :type searchWord: str
+        :rtype: int
+        """
+        words = sentence.split()
+        for index, word in enumerate(words, 1):
+            if word.startswith(searchWord):
+                return index  
+        return -1 
+		
+Q7) 2114 - Maximum Number of Words Found in Sentences
+class Solution(object):
+    def mostWordsFound(self, sentences):
+        """
+        :type sentences: List[str]
+        :rtype: int
+        """
+        return max(len(sentence.split()) for sentence in sentences)
+		
+Q8) 389 - Find the Difference
+class Solution {
+    public char findTheDifference(String s, String t) {
+        char result = 0;
+        for (char c : s.toCharArray()) {
+            result ^= c;
+        }
+        for (char c : t.toCharArray()) {
+            result ^= c;
+        }
+        return result;
+    }
+}
+
+Q9) 657 - Robot Return to Origin
+class Solution {
+    public boolean judgeCircle(String moves) {
+        int x = 0;
+        int y = 0;
+        
+        for (char move : moves.toCharArray()) {
+            if (move == 'U') {
+                y++;
+            } else if (move == 'D') {
+                y--;
+            } else if (move == 'R') {
+                x++;
+            } else if (move == 'L') {
+                x--;
+            }
+        }
+        
+        return x == 0 && y == 0;
+    }
+}
+
+Q10) 520 - Detect Capital
+class Solution {
+    public boolean detectCapitalUse(String word) {
+        int count = 0;
+        for (char c : word.toCharArray()) {
+            if (Character.isUpperCase(c)) {
+                count++;
+            }
+        }
+        if (count == word.length() || count == 0) {
+            return true;
+        }
+        return count == 1 && Character.isUpperCase(word.charAt(0));
+    }
+}
+
+Q11) 125 - Valid Palindrome
+class Solution {
+    public boolean isPalindrome(String s) {
+        int left = 0;
+        int right = s.length() - 1;
+        while (left < right) {
+            while (left < right && !Character.isLetterOrDigit(s.charAt(left))) {
+                left++;
+            }
+            while (left < right && !Character.isLetterOrDigit(s.charAt(right))) {
+                right--;
+            }
+            if (Character.toLowerCase(s.charAt(left)) != Character.toLowerCase(s.charAt(right))) {
+                return false;
+            }
+            left++;
+            right--;
+        }
+        
+        return true;
+    }
+}
+
+Q12) 242 - Valid Anagram
+class Solution {
+    public boolean isAnagram(String s, String t) {
+        if (s.length() != t.length()) {
+            return false;
+        }
+        int[] charCounts = new int[26];
+        for (int i = 0; i < s.length(); i++) {
+            charCounts[s.charAt(i) - 'a']++;
+            charCounts[t.charAt(i) - 'a']--;
+        }
+        for (int count : charCounts) {
+            if (count != 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+}
+
+Q13) 1108 - Defanging an IP Address
+class Solution {
+    public String defangIPaddr(String address) {
+        return address.replace(".", "[.]");
+    }
+}
+
+Q14) 1662 - Check If Two String Arrays are Equivalent
+class Solution {
+    public boolean arrayStringsAreEqual(String[] word1, String[] word2) {
+        int p1 = 0, p2 = 0; 
+        int i = 0, j = 0;   
+        while (p1 < word1.length && p2 < word2.length) {
+            if (word1[p1].charAt(i) != word2[p2].charAt(j)) {
+                return false;
+            }
+            i++;
+            j++;
+            if (i == word1[p1].length()) {
+                p1++;
+                i = 0;
+            }
+            if (j == word2[p2].length()) {
+                p2++;
+                j = 0;
+            }
+        }
+        return p1 == word1.length && p2 == word2.length;
+    }
+}
+
+Q15) 3019 - Number of Changing Keys
+class Solution {
+    public int countKeyChanges(String s) {
+	String lowerCaseStr = s.toLowerCase();
+        int changeCount = 0;
+        for (int i = 1; i < lowerCaseStr.length(); i++) {
+            if (lowerCaseStr.charAt(i) != lowerCaseStr.charAt(i - 1)) {
+                changeCount++;
+            }
+        }
+        
+        return changeCount;
+    }
+}
+
+Q16) 709 - To Lower Case
+class Solution {
+    public String toLowerCase(String s) {
+        char[] chars = s.toCharArray();
+        for (int i = 0; i < chars.length; i++) {
+            if (chars[i] >= 'A' && chars[i] <= 'Z') {
+                chars[i] = (char) (chars[i] + 32);
+            }
+        }
+        return new String(chars);
+   }
+}
+
+LINKED LIST
+
+Q1) 876 - Middle of the Linked List
+class Solution {
+    public ListNode middleNode(ListNode head) {
+        ListNode slow = head;
+        ListNode fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        return slow;
+    }
+}
+
+Q2) 237 - Delete Node in a Linked List
+
+class Solution:
+    def deleteNode(self, node):
+        """
+        :type node: ListNode
+        :rtype: void Do not return anything, modify node in-place instead.
+        """
+        node.val = node.next.val
+        node.next = node.next.next
+
+Q3) 234 - Palindrome Linked List
+
+class Solution(object):
+    def isPalindrome(self, head):
+        """
+        :type head: Optional[ListNode]
+        :rtype: bool
+        """
+        if not head or not head.next:
+            return True
+       
+        slow = head
+        fast = head
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+            
+        prev = None
+        curr = slow
+        while curr:
+            next_node = curr.next
+            curr.next = prev
+            prev = curr
+            curr = next_node
+            
+        first_half = head
+        second_half = prev  
+        
+        while second_half: 
+            if first_half.val != second_half.val:
+                return False
+            first_half = first_half.next
+            second_half = second_half.next
+            
+        return True
+
+Q4) 142 - Linked List Cycle II
+
+public class Solution {
+    public ListNode detectCycle(ListNode head) {
+        if (head == null || head.next == null) {
+            return null;
+        }
+        
+        ListNode slow = head;
+        ListNode shadow = head;
+        ListNode fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+            if (slow == fast) {
+                slow = head;
+                while (slow != fast) {
+                    slow = slow.next;
+                    fast = fast.next;
+                }
+                return slow; 
+            }
+        }
+        
+        return null;
+    }
+}
+
+Q5) 141 - Linked List Cycle
+
+public class Solution {
+    public boolean hasCycle(ListNode head) {
+        if (head == null || head.next == null) {
+            return false;
+        }
+        
+        ListNode slow = head;
+        ListNode fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;         
+            fast = fast.next.next;   
+            if (slow == fast) {
+                return true;
+            }
+        }
+    }
+}
+
+Q6) 206 - Reverse Linked List
+
+class Solution {
+    public ListNode reverseList(ListNode head) {
+        ListNode prev = null;
+        ListNode curr = head;
+        
+        while (curr != null) {
+            ListNode nextNode = curr.next; 
+            curr.next = prev;              
+            prev = curr;                   
+            curr = nextNode;              
+        }
+        
+        return prev; 
+    }
+}
+
+Q7) 19 - Remove Nth Node From End of List
+
+
+class Solution {
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        
+        ListNode fast = dummy;
+        ListNode slow = dummy;
+        for (int i = 0; i <= n; i++) {
+            fast = fast.next;
+        }
+        while (fast != null) {
+            fast = fast.next;
+            slow = slow.next;
+        }
+        slow.next = slow.next.next;
+        return dummy.next;
+    }
+}
